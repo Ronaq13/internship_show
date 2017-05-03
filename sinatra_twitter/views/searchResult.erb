@@ -1,0 +1,48 @@
+<%if sessionUser%>
+<div layout="column" layout-fill>
+<md-button style="width:40px;" class="md-raised" href="/dashboard">Back</md-button>
+    <md-content layout="row" layout-fill>
+        <md-card flex>
+            <md-toolbar layout="row" class="md-hue-3">
+                <div class="md-toolbar-tools">
+                    <span>Search Result</span>
+                </div>
+            </md-toolbar>
+            <md-content layout="column" layout-padding>
+            <% isAlreadyFollowing = false %>
+            <% allFollow.each do |follow|%>
+            <% puts #{sessionUser.email} %>
+                <%if youSearchedFor == follow.user_email && sessionUser.email == follow.follower_email%>
+                    <% isAlreadyFollowing = true %>
+                <%end%>
+            <%end%>
+            <md-list flex>
+                <% allUsers.each do |user|%>
+                    <% if user.email == youSearchedFor %>
+                        <md-list-item layout="row" layout-fill>
+                            <p><%= user.email%><p>
+                            <span flex></span>
+                            <div layout="row">
+                                
+                                <form ng-hide="<%=isAlreadyFollowing%>" action="/doFollowing" method="POST">
+                                    <input type="hidden" name="userEmail" value="<%= user.email%>">
+                                    <input type="hidden" name="sessionUser" value="<%= sessionUser.email%>">
+                                    <input type="submit" value="Follow"/>
+                                </form>
+                             
+                                <form ng-hide="<%=!isAlreadyFollowing%>"  action="/doUnFollowing" method="POST" layout="row">
+                                    <p style="margin-right: 20px;" class="md-caption">(Already following)</p>   
+                                    <input type="hidden" name="userEmail" value="<%= user.email%>">
+                                    <input type="hidden" name="sessionUser" value="<%= sessionUser.email%>">
+                                    <input type="submit" value="UnFollow"/>
+                                </form>
+                            </div>
+                        </md-list-item>
+                    <%end%>
+                <%end%>
+            </md-list>
+            </md-content>
+        </md-card>
+    </md-content>
+</div>
+<%end%>

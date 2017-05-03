@@ -1,0 +1,10 @@
+<div layout-padding>
+    <md-card>
+        <form action="/afterEditingTweet" method="POST" layout="column" style="width: 100%;">
+           <!-- <input type="hidden" name="_method" value="put"> -->
+            <input type="hidden" name="tweetId" value="<%=tweetId%>">
+            <textarea name="contentChanged"><%= tweetContent %></textarea>
+            <md-button class="md-raised" type="submit">Done</md-button>
+	    </form>
+    </md-card>
+</div>

@@ -1,0 +1,29 @@
+<div layout="column" layout-fill>
+<md-button style="width:40px;" class="md-raised" href="/dashboard">Back</md-button>
+    <md-content layout="row" layout-fill>
+        
+        <md-card flex>
+            <md-toolbar layout="row" class="md-hue-3">
+                <div class="md-toolbar-tools">
+                    <span>Your Details</span>
+                </div>
+            </md-toolbar>
+            <md-content layout="column" layout-padding>
+                <div layout="row">
+                    <p flex="15">Profile photo : </p>
+                    <div style="width:100px;height:100px;">
+                        <img src="http://localhost:4567/a1.jpg" class="md-avatar" alt="profile_photo" />
+                    </div>
+                </div>
+                <div layout=row>
+                    <p>E-mail : </p>
+                    <p> <%= userToSeeDetails.email%></p>
+                </div>
+                <div layout=row>
+                    <p>Password : </p>
+                    <p> <%= userToSeeDetails.password%></p>
+                </div>
+            </md-content>
+        </md-card>
+    </md-content>
+</div>

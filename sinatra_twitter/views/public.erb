@@ -1,0 +1,64 @@
+
+<div style="margin: 30px 60px 30px 60px;">
+<md-card style="justify" flex>
+        <md-toolbar layout="row" class="md-hue-3">
+        <div class="md-toolbar-tools">
+            <span>All Tweets</span>
+        </div>
+        </md-toolbar>
+        <md-content>
+            <md-list flex>
+                <% allTweets.each do |tweet| %>
+                    <md-list-item class="md-3-line" layout="column">
+                        <div layout="row" layout-padding layout-fill>
+                            <img src="http://localhost:4567/a1.jpg" class="md-avatar" alt="profile_photo" />
+                            <div class="md-list-item-text" layout="column">
+                               <p class="md-title">
+                                    <% allUsers.each do |currentUser|%>
+                                       <% if (currentUser.id == tweet.user_id) %>
+                                            <%= currentUser.email%>
+                                            <% break %>
+                                        <%end%>
+                                    <%end%> 
+                                </p>
+                                <h3><%= tweet.content %></h3> <br>
+                            </div>
+                            <span flex></span>
+                            <p class="md-subheader"><%=tweet.tweetTime%></p>
+                        </div>
+                        <!--<div layout="row">
+                            <md-button class="md-raised">Like</md-button>
+                            <md-button class="md-raised">Up vote</md-button>
+                        </div>
+                        -->
+                        <div  layout="row" flex layout-fill layout-padding style="justify-content:start; align-items:center;">
+                            <div layout="row">
+                                <% isAlreadyLiked = false %>
+                                    <%  allLikes.each do |like| %>
+                                        <% if user.id == like.user_id && like.tweet_id == tweet.id%>
+                                            <% isAlreadyLiked = true %>
+                                            <% puts #{isAlreadyLiked}%>
+                                        <%end%>
+                                    <%end%>
+                                <form ng-hide="<%=isAlreadyLiked%>" action="/likeButtonClicked" method="POST"><md-button type="submit" name="tweet_id" value="<%= tweet.id %>" style="margin: 0px;" class="md-raised">Like</md-button></form>
+                                <form ng-hide="<%=!isAlreadyLiked%>" action="/dislikeButtonClicked" method="POST"><md-button type="submit" name="tweet_id" value="<%= tweet.id %>" style="margin: 0px;" class="md-raised">Dislike</md-button></form>
+                            </div>
+                            <span flex></span>
+                            <div layout="row" style="display:flex; justify-content:center; align-items:center">
+                                <md-button-icon><i class="material-icons">thumb_up</i><md-button-icon>
+                                <% count = 0 %>
+                                <% allLikes.each do |like|%>
+                                    <% if (like.tweet_id == tweet.id) %>
+                                        <% count = count +1 %>
+                                    <% end %>
+                                <%end%>
+                                <%= count %>
+                            </div>
+                        </div>
+                    </md-list-item>
+                    <md-divider></md-divider>
+                <% end %>
+            </md-list>
+        </md-content>
+    </md-card>
+</div>
